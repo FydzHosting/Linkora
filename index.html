@@ -17,6 +17,7 @@
   --yellow: #ffc72c;
   --green: #00e676;
   --cyan: #00f0ff;
+  --red: #ff3b30;
   --border: 3px solid #0d0d0d;
   --shadow: 4px 4px 0px #0d0d0d;
   --shadow-lg: 6px 6px 0px #0d0d0d;
@@ -96,7 +97,7 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
 
 /* 3. SIDEBAR / DRAWER MENU */
 #drawer-overlay {
-  position: fixed; inset: 0; background: rgba(0,0,0,0.4);
+  position: fixed; inset: 0; background: rgba(0,0,0,0.45);
   z-index: 99999; opacity: 0; visibility: hidden; transition: 0.2s ease;
 }
 #drawer-overlay.show { opacity: 1; visibility: visible; }
@@ -119,7 +120,6 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
   width: 32px; height: 32px; border-radius: 8px; font-weight: 900; cursor: pointer;
 }
 
-/* PROFILE BOX DENGAN FOTO BACKGROUND & FOTO PROFIL ASLI */
 .profile-box {
   position: relative;
   background: linear-gradient(rgba(13, 13, 13, 0.75), rgba(13, 13, 13, 0.85)), 
@@ -167,15 +167,20 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
 .brand-text strong { font-weight: 900; font-size: 15px; display: block; line-height: 1.2; }
 .brand-text small { font-weight: 700; font-size: 11px; color: #64748b; }
 
-.hamburger-btn {
+.header-actions { display: flex; gap: 8px; }
+.icon-header-btn {
   background: var(--panel); border: var(--border); border-radius: var(--radius-sm);
-  width: 44px; height: 44px; display: grid; place-items: center;
-  font-size: 20px; font-weight: 900; cursor: pointer; box-shadow: var(--shadow-sm);
-  transition: 0.1s;
+  height: 44px; padding: 0 12px; display: flex; align-items: center; justify-content: center; gap: 6px;
+  font-size: 12px; font-weight: 900; cursor: pointer; box-shadow: var(--shadow-sm);
+  transition: 0.1s; position: relative;
 }
-.hamburger-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px #0d0d0d; }
+.icon-header-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px #0d0d0d; }
+.history-badge {
+  background: var(--orange); color: #fff; font-size: 10px; padding: 2px 6px;
+  border-radius: 99px; border: 1.5px solid var(--black);
+}
 
-/* NAVIGATION TABS */
+/* NAVIGATION TABS (5 CLEAN ENGINES) */
 .nav-tabs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
 .nav-tab {
   background: var(--panel); border: var(--border); border-radius: var(--radius-sm);
@@ -223,22 +228,58 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
 .card-header-tag span { font-weight: 900; font-size: 12px; }
 .dev-badge { background: var(--black); color: #fff; padding: 4px 10px; border-radius: 6px; font-weight: 900; font-size: 11px; }
 
+/* CUSTOM ENGINE VERSION SELECTOR */
+.engine-selector-wrap { margin-bottom: 18px; }
+.engine-segmented-box {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+  background: var(--bg-grid); padding: 6px; border: var(--border);
+  border-radius: var(--radius-sm); box-shadow: var(--shadow-sm);
+}
+.engine-opt-btn {
+  background: transparent; border: 2px solid transparent; border-radius: 8px;
+  padding: 10px 8px; cursor: pointer; text-align: left; transition: all 0.15s ease;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.engine-opt-btn strong { font-size: 12px; font-weight: 900; color: var(--black); display: flex; align-items: center; justify-content: space-between; }
+.engine-opt-btn small { font-size: 10px; font-weight: 700; color: #64748b; }
+.engine-opt-btn.selected {
+  background: var(--yellow); border: 2px solid var(--black);
+  box-shadow: 2px 2px 0px var(--black);
+}
+.engine-opt-btn.selected small { color: var(--black); }
+.opt-dot {
+  width: 10px; height: 10px; border-radius: 50%; border: 2px solid var(--black);
+  background: #fff; display: inline-block;
+}
+.engine-opt-btn.selected .opt-dot { background: var(--green); }
+
 .step-label-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
 .step-label-row label { font-weight: 900; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
 .step-badge { border: 2px solid var(--black); padding: 2px 8px; border-radius: 6px; font-weight: 800; font-size: 10px; background: var(--bg-grid); }
 
-/* INPUT & PASTE BUTTON WRAPPER */
+/* INPUT, DYNAMIC CLEAR & PASTE BUTTON WRAPPER */
 .input-group-wrap { position: relative; margin-bottom: 16px; display: flex; align-items: center; }
 .input-box {
   width: 100%; background: var(--panel); border: var(--border); border-radius: var(--radius-sm);
-  padding: 14px 75px 14px 16px; font-weight: 700; font-size: 14px; color: var(--black); outline: none;
+  padding: 14px 110px 14px 14px; font-weight: 700; font-size: 14px; color: var(--black); outline: none;
   box-shadow: var(--shadow-sm);
 }
 .input-box:focus { background: #fffdf5; border-color: var(--orange); box-shadow: 4px 4px 0px var(--orange); }
 
+.input-inline-actions {
+  position: absolute; right: 8px; display: flex; align-items: center; gap: 5px;
+}
+.clear-inline-btn {
+  background: #f1f5f9; border: 2px solid var(--black); width: 28px; height: 28px;
+  border-radius: 6px; font-weight: 900; font-size: 11px; cursor: pointer;
+  display: none; place-items: center; transition: 0.15s ease;
+}
+.clear-inline-btn.show { display: grid; }
+.clear-inline-btn:hover { background: var(--red); color: #fff; }
+
 .paste-inline-btn {
-  position: absolute; right: 8px; background: var(--yellow); border: 2px solid var(--black);
-  padding: 6px 12px; border-radius: 6px; font-weight: 900; font-size: 11px; cursor: pointer;
+  background: var(--yellow); border: 2px solid var(--black);
+  padding: 5px 10px; border-radius: 6px; font-weight: 900; font-size: 11px; cursor: pointer;
   box-shadow: 2px 2px 0px var(--black); transition: 0.1s;
 }
 .paste-inline-btn:active { transform: translate(1px, 1px); box-shadow: none; }
@@ -249,12 +290,13 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
   font-weight: 900; font-size: 14px; cursor: pointer; text-transform: uppercase; transition: all 0.15s ease;
 }
 .action-btn-primary:hover { transform: translateY(-2px); box-shadow: 6px 6px 0px #0d0d0d; }
+.action-btn-primary:disabled { opacity: 0.75; cursor: not-allowed; transform: none; }
 
 .result-card {
   display: none; margin-top: 20px; border: var(--border); background: #fffdf0; padding: 18px;
   border-radius: var(--radius-sm); box-shadow: var(--shadow-sm);
 }
-.result-card.show { display: block; }
+.result-card.show { display: block; animation: fadeIn 0.25s ease; }
 .result-card h4 { margin: 0 0 8px; font-size: 13px; font-weight: 900; color: var(--black); }
 
 .result-link-box {
@@ -273,17 +315,96 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
   text-decoration: none; display: grid; place-items: center; text-align: center;
 }
 
-/* FLOATING TOAST NOTIFICATION */
+/* CUSTOM MODAL & HISTORY */
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(13, 13, 13, 0.72);
+  backdrop-filter: blur(4px); z-index: 99999998;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  opacity: 0; visibility: hidden; transition: all 0.2s ease;
+}
+.modal-backdrop.show { opacity: 1; visibility: visible; }
+
+.custom-modal-box {
+  background: var(--panel); border: var(--border); box-shadow: 8px 8px 0px var(--black);
+  border-radius: 20px; max-width: 400px; width: 100%; padding: 24px;
+  transform: scale(0.9) translateY(15px); transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-align: center; max-height: 85vh; overflow-y: auto;
+}
+.modal-backdrop.show .custom-modal-box { transform: scale(1) translateY(0); }
+
+.modal-badge-top {
+  display: inline-block; padding: 5px 12px; border: 2px solid var(--black);
+  border-radius: 8px; font-weight: 900; font-size: 11px; text-transform: uppercase;
+  box-shadow: 2px 2px 0px var(--black); margin-bottom: 14px;
+}
+.modal-badge-top.success { background: var(--green); color: var(--black); }
+.modal-badge-top.error { background: var(--red); color: #ffffff; }
+.modal-badge-top.info { background: var(--yellow); color: var(--black); }
+
+.modal-title { font-weight: 900; font-size: 19px; margin: 0 0 8px; line-height: 1.25; }
+.modal-desc { font-weight: 700; font-size: 13px; color: #475569; margin: 0 0 16px; line-height: 1.5; }
+
+.modal-url-preview {
+  display: none; background: var(--black); color: var(--green);
+  border: 2px solid var(--black); border-radius: 10px; padding: 12px;
+  font-family: monospace; font-size: 12px; word-break: break-all;
+  margin-bottom: 18px; text-align: left; max-height: 90px; overflow-y: auto;
+}
+.modal-url-preview.active { display: block; }
+
+.modal-btn-group { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.modal-btn {
+  padding: 12px; border: var(--border); border-radius: 10px;
+  font-weight: 900; font-size: 12px; text-transform: uppercase; cursor: pointer;
+  box-shadow: 3px 3px 0px var(--black); text-decoration: none;
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+}
+.modal-btn:active { transform: translate(2px, 2px); box-shadow: 1px 1px 0px var(--black); }
+.modal-btn-copy { background: var(--green); color: var(--black); }
+.modal-btn-open { background: var(--cyan); color: var(--black); }
+.modal-btn-close { background: var(--yellow); color: var(--black); width: 100%; margin-top: 10px; }
+
+/* HISTORY LIST */
+.history-list { display: grid; gap: 10px; text-align: left; margin-bottom: 14px; }
+.history-item {
+  background: var(--bg-grid); border: 2px solid var(--black); border-radius: 10px;
+  padding: 10px 12px; box-shadow: 2px 2px 0px var(--black);
+}
+.history-item-top {
+  display: flex; justify-content: space-between; font-size: 10px; font-weight: 900;
+  color: var(--orange); margin-bottom: 4px; text-transform: uppercase;
+}
+.history-item-url {
+  font-family: monospace; font-size: 11px; font-weight: 700; color: var(--black);
+  word-break: break-all; margin-bottom: 8px;
+}
+.history-item-actions { display: flex; gap: 6px; }
+.history-mini-btn {
+  flex: 1; padding: 6px; border: 2px solid var(--black); border-radius: 6px;
+  font-weight: 900; font-size: 10px; cursor: pointer; text-align: center; text-decoration: none; color: var(--black);
+}
+
+/* FLOATING TOAST */
 #toast {
-  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(100px);
-  background: var(--black); color: #fff; border: 3px solid var(--orange); padding: 12px 20px;
-  border-radius: 30px; font-weight: 900; font-size: 13px; z-index: 99999999;
+  position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(120px);
+  background: var(--black); color: #fff; border: 3px solid var(--orange); padding: 12px 18px;
+  border-radius: 14px; font-weight: 900; font-size: 13px; z-index: 99999999;
   box-shadow: 4px 4px 0px var(--orange); transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  pointer-events: none; text-align: center; white-space: nowrap;
+  pointer-events: none; display: flex; align-items: center; gap: 10px; max-width: 90vw;
 }
 #toast.show { transform: translateX(-50%) translateY(0); }
+#toast.toast-success { border-color: var(--green); box-shadow: 4px 4px 0px var(--green); }
+#toast.toast-error { border-color: var(--red); box-shadow: 4px 4px 0px var(--red); }
+#toast.toast-info { border-color: var(--yellow); box-shadow: 4px 4px 0px var(--yellow); }
 
-/* PANDUAN */
+.toast-icon {
+  width: 22px; height: 22px; border-radius: 6px; display: grid; place-items: center;
+  font-size: 12px; flex-shrink: 0; color: var(--black); font-weight: 900;
+}
+.toast-success .toast-icon { background: var(--green); }
+.toast-error .toast-icon { background: var(--red); color: #fff; }
+.toast-info .toast-icon { background: var(--yellow); }
+
 .guide-box {
   background: var(--panel); border: var(--border); border-radius: var(--radius);
   box-shadow: var(--shadow); padding: 18px; margin-top: 16px;
@@ -297,14 +418,44 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
 <body class="intro-active">
 
 <!-- FLOATING TOAST -->
-<div id="toast">Notifikasi berhasil</div>
+<div id="toast" class="toast-success">
+  <span class="toast-icon" id="toastIcon">✔</span>
+  <span id="toastMsg">Notifikasi berhasil</span>
+</div>
 
-<!-- 1. GATEWAY SCREEN -->
+<!-- CUSTOM MODAL -->
+<div id="custom-modal-backdrop" class="modal-backdrop">
+  <div class="custom-modal-box">
+    <div id="modalBadge" class="modal-badge-top success">SUKSES EKSTRAK</div>
+    <h3 id="modalTitle" class="modal-title">Link Berhasil Didapatkan!</h3>
+    <p id="modalDesc" class="modal-desc">Tautan asli sudah siap digunakan tanpa iklan.</p>
+    <div id="modalUrlBox" class="modal-url-preview"></div>
+    <div id="modalActions" class="modal-btn-group">
+      <button type="button" class="modal-btn modal-btn-copy" id="modalCopyBtn">📋 SALIN LINK</button>
+      <a class="modal-btn modal-btn-open" id="modalOpenBtn" href="#" target="_blank" rel="noopener">🌐 BUKA ↗</a>
+    </div>
+    <button type="button" class="modal-btn modal-btn-close" onclick="closeCustomModal()">TUTUP POPUP ✕</button>
+  </div>
+</div>
+
+<!-- HISTORY MODAL -->
+<div id="history-modal-backdrop" class="modal-backdrop">
+  <div class="custom-modal-box">
+    <div class="modal-badge-top info">RIWAYAT LOKAL</div>
+    <h3 class="modal-title">5 Bypass Terakhir</h3>
+    <p class="modal-desc">Tersimpan otomatis di perangkatmu.</p>
+    <div id="historyListContainer" class="history-list"></div>
+    <div class="modal-btn-group">
+      <button type="button" class="modal-btn" style="background:var(--red);color:#fff;" onclick="clearHistory()">🗑️ HAPUS</button>
+      <button type="button" class="modal-btn modal-btn-copy" onclick="closeHistoryModal()">TUTUP ✕</button>
+    </div>
+  </div>
+</div>
+
+<!-- GATEWAY -->
 <div id="gateway-screen">
   <div class="gateway-card">
-    <div class="logo-box-outer">
-      <div class="logo-box-inner"></div>
-    </div>
+    <div class="logo-box-outer"><div class="logo-box-inner"></div></div>
     <div class="gateway-title">
       <h2>LINKORA SUITE</h2>
       <p>Multi-Engine Extractor by Fydz</p>
@@ -313,17 +464,15 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
   </div>
 </div>
 
-<!-- 2. FULLSCREEN INTRO OVERLAY -->
+<!-- INTRO VIDEO -->
 <div id="intro-overlay" class="hidden">
-  <div class="intro-controls">
-    <button class="skip-btn" id="skipBtn">SKIP INTRO ➔</button>
-  </div>
+  <div class="intro-controls"><button class="skip-btn" id="skipBtn">SKIP INTRO ➔</button></div>
   <video id="intro-video" playsinline>
     <source src="https://res.cloudinary.com/zqq3lfgt/video/upload/v1794318574/446345c1baa30d67a8a7004ef78e5804_720w.mp4" type="video/mp4">
   </video>
 </div>
 
-<!-- 3. SIDEBAR / DRAWER MENU -->
+<!-- DRAWER -->
 <div id="drawer-overlay"></div>
 <aside id="drawer" class="drawer">
   <div class="drawer-header">
@@ -342,53 +491,51 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
   </div>
 </aside>
 
-<!-- 4. MAIN APPLICATION -->
+<!-- MAIN APP -->
 <div class="app">
   <header class="header-bar">
     <div class="header-brand">
-      <div class="brand-icon">
-        <div class="brand-icon-inner"></div>
-      </div>
+      <div class="brand-icon"><div class="brand-icon-inner"></div></div>
       <div class="brand-text">
         <strong>Linkora Suite</strong>
-        <small>Multi-Engine Extractor</small>
+        <small>Smart Auto-Switch Engine</small>
       </div>
     </div>
-    <button class="hamburger-btn" id="hamburgerBtn" aria-label="Menu">☰</button>
+    <div class="header-actions">
+      <button class="icon-header-btn" id="openHistoryBtn" title="Riwayat">
+        🕒 <span class="history-badge" id="historyCount">0</span>
+      </button>
+      <button class="icon-header-btn" id="hamburgerBtn" aria-label="Menu">☰</button>
+    </div>
   </header>
 
-  <!-- NAVIGATION TABS -->
+  <!-- NAV TABS (5 ENGINES) -->
   <nav class="nav-tabs">
     <button class="nav-tab active" data-target="sfl">SFL Bypass</button>
     <button class="nav-tab" data-target="sub4unlock">Sub4Unlock</button>
     <button class="nav-tab" data-target="sub2unlock">Sub2Unlock</button>
+    <button class="nav-tab" data-target="linkvertise">Linkvertise</button>
+    <button class="nav-tab" data-target="ouo">Ouo.io</button>
   </nav>
 
   <div class="divider-line"></div>
 
-  <!-- VIEW 1: SFL BYPASS -->
+  <!-- VIEW 1: SFL -->
   <section class="view active" id="view-sfl">
     <div class="tag-banner">ENGINE 01 / SAFELINK</div>
     <h1 class="hero-title">SFL Safelink Bypass.<br><span class="hero-title-box">Langsung Ke MediaFire.</span></h1>
-    <p class="hero-desc">Lewati iklan dan timer safelink sfl.gl secara instan menggunakan API engine pribadi.</p>
-
+    <p class="hero-desc">Lewati iklan dan timer safelink sfl.gl secara instan dengan satu kali klik.</p>
     <main class="form-card">
-      <div class="card-header-tag">
-        <span>&lt;/&gt; SERVICE: SFL BYPASS</span>
-        <span class="dev-badge">ACTIVE</span>
-      </div>
-
-      <div class="step-label-row">
-        <label for="sflUrl">01. TEMPEL TAUTAN SFL</label>
-        <span class="step-badge">Target Link</span>
-      </div>
+      <div class="card-header-tag"><span>&lt;/&gt; SERVICE: SFL BYPASS</span><span class="dev-badge">ACTIVE</span></div>
+      <div class="step-label-row"><label for="sflUrl">01. TEMPEL TAUTAN SFL</label><span class="step-badge">Auto-Detect</span></div>
       <div class="input-group-wrap">
-        <input id="sflUrl" class="input-box" type="url" placeholder="https://sfl.gl/..." autocomplete="url">
-        <button class="paste-inline-btn" type="button" onclick="pasteClipboard('sflUrl')">PASTE</button>
+        <input id="sflUrl" class="input-box smart-url-input" type="text" inputmode="url" placeholder="https://sfl.gl/..." autocomplete="off" oninput="handleInputTyping('sflUrl', 'sflClear')">
+        <div class="input-inline-actions">
+          <button class="clear-inline-btn" id="sflClear" type="button" onclick="clearInput('sflUrl', 'sflClear', 'sflResultCard')">✕</button>
+          <button class="paste-inline-btn" type="button" onclick="pasteClipboard('sflUrl')">PASTE</button>
+        </div>
       </div>
-
-      <button class="action-btn-primary" id="sflBtn">BYPASS SFL SEKARANG ↓</button>
-
+      <button class="action-btn-primary" id="sflBtn" data-label="BYPASS SFL SEKARANG ↓">BYPASS SFL SEKARANG ↓</button>
       <div id="sflResultCard" class="result-card">
         <h4>LINK TUJUAN BERHASIL DIDAPATKAN:</h4>
         <div id="sflResultLink" class="result-link-box"></div>
@@ -398,37 +545,24 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
         </div>
       </div>
     </main>
-
-    <div class="guide-box">
-      <h3>📖 Panduan Penggunaan SFL</h3>
-      <p>1. Klik tombol <b>PASTE</b> untuk menempel tautan sfl.gl dengan cepat.</p>
-      <p>2. Eksekusi bypass, lalu salin atau langsung buka link tujuannya.</p>
-    </div>
   </section>
 
   <!-- VIEW 2: SUB4UNLOCK -->
   <section class="view" id="view-sub4unlock">
     <div class="tag-banner">ENGINE 02 / SUBSCRIPTION</div>
-    <h1 class="hero-title">Sub4Unlock Bypass.<br><span class="hero-title-box">Tanpa Subscribe Channel.</span></h1>
-    <p class="hero-desc">Buka link unduhan yang dikunci dengan syarat subscribe atau like channel YouTube otomatis.</p>
-
+    <h1 class="hero-title">Sub4Unlock Bypass.<br><span class="hero-title-box">Langsung Buka File Tanpa Subscribe.</span></h1>
+    <p class="hero-desc">Buka tautan unduhan yang dikunci dengan syarat subscribe atau like channel YouTube secara otomatis.</p>
     <main class="form-card">
-      <div class="card-header-tag">
-        <span>&lt;/&gt; SERVICE: SUB4UNLOCK</span>
-        <span class="dev-badge">ACTIVE</span>
-      </div>
-
-      <div class="step-label-row">
-        <label for="sub4Url">01. TEMPEL TAUTAN SUB4UNLOCK</label>
-        <span class="step-badge">Target Link</span>
-      </div>
+      <div class="card-header-tag"><span>&lt;/&gt; SERVICE: SUB4UNLOCK</span><span class="dev-badge">ACTIVE</span></div>
+      <div class="step-label-row"><label for="sub4Url">01. TEMPEL TAUTAN SUB4UNLOCK</label><span class="step-badge">Auto-Detect</span></div>
       <div class="input-group-wrap">
-        <input id="sub4Url" class="input-box" type="url" placeholder="https://sub4unlock.io/..." autocomplete="url">
-        <button class="paste-inline-btn" type="button" onclick="pasteClipboard('sub4Url')">PASTE</button>
+        <input id="sub4Url" class="input-box smart-url-input" type="text" inputmode="url" placeholder="https://sub4unlock.io/..." autocomplete="off" oninput="handleInputTyping('sub4Url', 'sub4Clear')">
+        <div class="input-inline-actions">
+          <button class="clear-inline-btn" id="sub4Clear" type="button" onclick="clearInput('sub4Url', 'sub4Clear', 'sub4ResultCard')">✕</button>
+          <button class="paste-inline-btn" type="button" onclick="pasteClipboard('sub4Url')">PASTE</button>
+        </div>
       </div>
-
-      <button class="action-btn-primary" id="sub4Btn">BYPASS SUB4UNLOCK ↓</button>
-
+      <button class="action-btn-primary" id="sub4Btn" data-label="BYPASS SUB4UNLOCK ↓">BYPASS SUB4UNLOCK ↓</button>
       <div id="sub4ResultCard" class="result-card">
         <h4>LINK TUJUAN BERHASIL DIDAPATKAN:</h4>
         <div id="sub4ResultLink" class="result-link-box"></div>
@@ -438,37 +572,24 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
         </div>
       </div>
     </main>
-
-    <div class="guide-box">
-      <h3>📖 Panduan Penggunaan Sub4Unlock</h3>
-      <p>1. Gunakan tombol <b>PASTE</b> untuk memasukkan link sub4unlock.io.</p>
-      <p>2. Jalankan bypass untuk membuka file tanpa perlu repot subscribe.</p>
-    </div>
   </section>
 
   <!-- VIEW 3: SUB2UNLOCK -->
   <section class="view" id="view-sub2unlock">
     <div class="tag-banner">ENGINE 03 / SOCIAL LOCK</div>
-    <h1 class="hero-title">Sub2Unlock Bypass.<br><span class="hero-title-box">Buka File Terkunci.</span></h1>
-    <p class="hero-desc">Ekstrak tautan asli dari halaman sub2unlock.net tanpa melewati proses verifikasi sosial.</p>
-
+    <h1 class="hero-title">Sub2Unlock Bypass.<br><span class="hero-title-box">Akses Link Asli Tanpa Verifikasi.</span></h1>
+    <p class="hero-desc">Ekstrak tautan asli dari halaman sub2unlock.net tanpa harus melewati proses verifikasi sosial.</p>
     <main class="form-card">
-      <div class="card-header-tag">
-        <span>&lt;/&gt; SERVICE: SUB2UNLOCK</span>
-        <span class="dev-badge">ACTIVE</span>
-      </div>
-
-      <div class="step-label-row">
-        <label for="sub2Url">01. TEMPEL TAUTAN SUB2UNLOCK</label>
-        <span class="step-badge">Target Link</span>
-      </div>
+      <div class="card-header-tag"><span>&lt;/&gt; SERVICE: SUB2UNLOCK</span><span class="dev-badge">ACTIVE</span></div>
+      <div class="step-label-row"><label for="sub2Url">01. TEMPEL TAUTAN SUB2UNLOCK</label><span class="step-badge">Auto-Detect</span></div>
       <div class="input-group-wrap">
-        <input id="sub2Url" class="input-box" type="url" placeholder="https://sub2unlock.net/..." autocomplete="url">
-        <button class="paste-inline-btn" type="button" onclick="pasteClipboard('sub2Url')">PASTE</button>
+        <input id="sub2Url" class="input-box smart-url-input" type="text" inputmode="url" placeholder="https://sub2unlock.net/..." autocomplete="off" oninput="handleInputTyping('sub2Url', 'sub2Clear')">
+        <div class="input-inline-actions">
+          <button class="clear-inline-btn" id="sub2Clear" type="button" onclick="clearInput('sub2Url', 'sub2Clear', 'sub2ResultCard')">✕</button>
+          <button class="paste-inline-btn" type="button" onclick="pasteClipboard('sub2Url')">PASTE</button>
+        </div>
       </div>
-
-      <button class="action-btn-primary" id="sub2Btn">BYPASS SUB2UNLOCK ↓</button>
-
+      <button class="action-btn-primary" id="sub2Btn" data-label="BYPASS SUB2UNLOCK ↓">BYPASS SUB2UNLOCK ↓</button>
       <div id="sub2ResultCard" class="result-card">
         <h4>LINK TUJUAN BERHASIL DIDAPATKAN:</h4>
         <div id="sub2ResultLink" class="result-link-box"></div>
@@ -478,12 +599,75 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
         </div>
       </div>
     </main>
+  </section>
 
-    <div class="guide-box">
-      <h3>📖 Panduan Penggunaan Sub2Unlock</h3>
-      <p>1. Tempel tautan sub2unlock.net menggunakan tombol paste cepat.</p>
-      <p>2. Dapatkan link murninya secara instan.</p>
-    </div>
+  <!-- VIEW 4: LINKVERTISE (V1 & V2 GABUNGAN) -->
+  <section class="view" id="view-linkvertise">
+    <div class="tag-banner">ENGINE 04 / LINKVERTISE DUAL-SERVER</div>
+    <h1 class="hero-title">Linkvertise Bypass.<br><span class="hero-title-box">Bypass Timer & Iklan Sekejap.</span></h1>
+    <p class="hero-desc">Lewati timer hitung mundur dan iklan Linkvertise secara instan menggunakan server V1 atau V2.</p>
+    <main class="form-card">
+      <div class="card-header-tag"><span>&lt;/&gt; SERVICE: LINKVERTISE</span><span class="dev-badge" id="lvActiveBadge">SERVER V1</span></div>
+
+      <div class="engine-selector-wrap">
+        <div class="step-label-row"><label>01. PILIH VERSI ENGINE</label><span class="step-badge">Custom Switch</span></div>
+        <div class="engine-segmented-box">
+          <button type="button" class="engine-opt-btn selected" id="optLv1" onclick="selectLvEngine('bypass', 'V1')">
+            <strong><span>⚡ Server V1</span> <span class="opt-dot"></span></strong>
+            <small>Utama · Cepat & Stabil</small>
+          </button>
+          <button type="button" class="engine-opt-btn" id="optLv2" onclick="selectLvEngine('bypass2', 'V2')">
+            <strong><span>🛡️ Server V2</span> <span class="opt-dot"></span></strong>
+            <small>Cadangan · Enkripsi Baru</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="step-label-row"><label for="lvUrl">02. TEMPEL TAUTAN LINKVERTISE</label><span class="step-badge">Target Link</span></div>
+      <div class="input-group-wrap">
+        <input id="lvUrl" class="input-box smart-url-input" type="text" inputmode="url" placeholder="https://linkvertise.com/..." autocomplete="off" oninput="handleInputTyping('lvUrl', 'lvClear')">
+        <div class="input-inline-actions">
+          <button class="clear-inline-btn" id="lvClear" type="button" onclick="clearInput('lvUrl', 'lvClear', 'lvResultCard')">✕</button>
+          <button class="paste-inline-btn" type="button" onclick="pasteClipboard('lvUrl')">PASTE</button>
+        </div>
+      </div>
+      <button class="action-btn-primary" id="lvBtn" data-label="BYPASS LINKVERTISE ↓">BYPASS LINKVERTISE ↓</button>
+      <div id="lvResultCard" class="result-card">
+        <h4>LINK TUJUAN BERHASIL DIDAPATKAN:</h4>
+        <div id="lvResultLink" class="result-link-box"></div>
+        <div class="result-actions-grid">
+          <button class="copy-btn" id="lvCopyBtn">📋 SALIN LINK</button>
+          <a class="open-btn" id="lvOpenBtn" href="#" target="_blank" rel="noopener">🌐 BUKA LANGSUNG ↗</a>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <!-- VIEW 5: OUO.IO -->
+  <section class="view" id="view-ouo">
+    <div class="tag-banner">ENGINE 05 / OUO SHORTENER</div>
+    <h1 class="hero-title">Ouo.io Link Bypass.<br><span class="hero-title-box">Tembus Captcha Tanpa Ribet.</span></h1>
+    <p class="hero-desc">Lewati verifikasi captcha dan halaman timer ouo.io maupun ouo.press langsung ke file tujuan.</p>
+    <main class="form-card">
+      <div class="card-header-tag"><span>&lt;/&gt; SERVICE: OUO.IO BYPASS</span><span class="dev-badge">ACTIVE</span></div>
+      <div class="step-label-row"><label for="ouoUrl">01. TEMPEL TAUTAN OUO.IO</label><span class="step-badge">Auto-Detect</span></div>
+      <div class="input-group-wrap">
+        <input id="ouoUrl" class="input-box smart-url-input" type="text" inputmode="url" placeholder="https://ouo.io/..." autocomplete="off" oninput="handleInputTyping('ouoUrl', 'ouoClear')">
+        <div class="input-inline-actions">
+          <button class="clear-inline-btn" id="ouoClear" type="button" onclick="clearInput('ouoUrl', 'ouoClear', 'ouoResultCard')">✕</button>
+          <button class="paste-inline-btn" type="button" onclick="pasteClipboard('ouoUrl')">PASTE</button>
+        </div>
+      </div>
+      <button class="action-btn-primary" id="ouoBtn" data-label="BYPASS OUO.IO SEKARANG ↓">BYPASS OUO.IO SEKARANG ↓</button>
+      <div id="ouoResultCard" class="result-card">
+        <h4>LINK TUJUAN BERHASIL DIDAPATKAN:</h4>
+        <div id="ouoResultLink" class="result-link-box"></div>
+        <div class="result-actions-grid">
+          <button class="copy-btn" id="ouoCopyBtn">📋 SALIN LINK</button>
+          <a class="open-btn" id="ouoOpenBtn" href="#" target="_blank" rel="noopener">🌐 BUKA LANGSUNG ↗</a>
+        </div>
+      </div>
+    </main>
   </section>
 
   <footer class="footer-credit">
@@ -492,39 +676,225 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
 </div>
 
 <script>
-// TOAST NOTIFICATION UTILITY
+// TOAST & MODAL UTILITIES
 let toastTimer;
-function showToast(message) {
+function showToast(message, type = 'success') {
   const toast = document.getElementById('toast');
-  toast.textContent = message;
+  const toastMsg = document.getElementById('toastMsg');
+  const toastIcon = document.getElementById('toastIcon');
+
+  toast.className = '';
+  toast.classList.add('toast-' + type);
+  toastMsg.textContent = message;
+
+  if (type === 'success') toastIcon.textContent = '✔';
+  else if (type === 'error') toastIcon.textContent = '✕';
+  else toastIcon.textContent = '!';
+
   toast.classList.add('show');
   clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => {
-    toast.classList.remove('show');
-  }, 2200);
+  toastTimer = setTimeout(() => { toast.classList.remove('show'); }, 2600);
 }
 
-// SMART QUICK PASTE FUNCTION WITH SAFE FALLBACK
+function openCustomModal({ type = 'success', badge = 'BERHASIL', title, desc, url = '' }) {
+  const backdrop = document.getElementById('custom-modal-backdrop');
+  const badgeEl = document.getElementById('modalBadge');
+  const titleEl = document.getElementById('modalTitle');
+  const descEl = document.getElementById('modalDesc');
+  const urlBox = document.getElementById('modalUrlBox');
+  const actionsBox = document.getElementById('modalActions');
+  const copyBtn = document.getElementById('modalCopyBtn');
+  const openBtn = document.getElementById('modalOpenBtn');
+
+  badgeEl.className = 'modal-badge-top ' + type;
+  badgeEl.textContent = badge;
+  titleEl.textContent = title;
+  descEl.textContent = desc;
+
+  if (url) {
+    urlBox.textContent = url;
+    urlBox.classList.add('active');
+    actionsBox.style.display = 'grid';
+    openBtn.href = url;
+    copyBtn.onclick = () => copyTextSafe(url);
+  } else {
+    urlBox.classList.remove('active');
+    actionsBox.style.display = 'none';
+  }
+  backdrop.classList.add('show');
+}
+
+function closeCustomModal() {
+  document.getElementById('custom-modal-backdrop').classList.remove('show');
+}
+
+document.getElementById('custom-modal-backdrop').addEventListener('click', (e) => {
+  if (e.target.id === 'custom-modal-backdrop') closeCustomModal();
+});
+
+function copyTextSafe(text) {
+  if (!text) return;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('Link berhasil disalin!', 'success');
+    }).catch(() => { fallbackCopyModal(text); });
+  } else { fallbackCopyModal(text); }
+}
+
+function fallbackCopyModal(text) {
+  openCustomModal({ type: 'info', badge: 'SALIN MANUAL', title: 'Salin Tautan', desc: 'Tahan teks di bawah untuk menyalin:', url: text });
+}
+
+// DYNAMIC INPUT & CLEAR LOGIC
+function handleInputTyping(inputId, clearBtnId) {
+  const inputElem = document.getElementById(inputId);
+  const clearBtn = document.getElementById(clearBtnId);
+  if (!clearBtn) return;
+
+  if (inputElem.value.trim().length > 0) {
+    clearBtn.classList.add('show');
+  } else {
+    clearBtn.classList.remove('show');
+  }
+}
+
+function clearInput(inputId, clearBtnId, resultCardId) {
+  document.getElementById(inputId).value = '';
+  document.getElementById(clearBtnId).classList.remove('show');
+  document.getElementById(resultCardId).classList.remove('show');
+  showToast('Input dibersihkan', 'info');
+}
+
+// SMART AUTO-SWITCH
+function detectAndSwitchEngine(urlText, currentInputId) {
+  const lower = urlText.toLowerCase();
+  let targetTab = null;
+  let targetInput = null;
+  let serviceName = '';
+  let clearBtnToTrigger = '';
+
+  if (lower.includes('sfl.gl')) {
+    targetTab = 'sfl'; targetInput = 'sflUrl'; serviceName = 'SFL Bypass'; clearBtnToTrigger = 'sflClear';
+  } else if (lower.includes('sub4unlock')) {
+    targetTab = 'sub4unlock'; targetInput = 'sub4Url'; serviceName = 'Sub4Unlock'; clearBtnToTrigger = 'sub4Clear';
+  } else if (lower.includes('sub2unlock')) {
+    targetTab = 'sub2unlock'; targetInput = 'sub2Url'; serviceName = 'Sub2Unlock'; clearBtnToTrigger = 'sub2Clear';
+  } else if (lower.includes('linkvertise') || lower.includes('link-to.net')) {
+    targetTab = 'linkvertise'; targetInput = 'lvUrl'; serviceName = 'Linkvertise'; clearBtnToTrigger = 'lvClear';
+  } else if (lower.includes('ouo.io') || lower.includes('ouo.press')) {
+    targetTab = 'ouo'; targetInput = 'ouoUrl'; serviceName = 'Ouo.io'; clearBtnToTrigger = 'ouoClear';
+  }
+
+  if (targetTab && targetInput !== currentInputId) {
+    switchTabTo(targetTab);
+    document.getElementById(targetInput).value = urlText.trim();
+    handleInputTyping(targetInput, clearBtnToTrigger);
+    if (currentInputId) {
+      document.getElementById(currentInputId).value = '';
+      const oldClear = currentInputId.replace('Url', 'Clear');
+      const oldBtn = document.getElementById(oldClear);
+      if (oldBtn) oldBtn.classList.remove('show');
+    }
+    showToast(`Auto-Switch ke ${serviceName}!`, 'info');
+    return true;
+  }
+  return false;
+}
+
 async function pasteClipboard(inputId) {
   const inputElem = document.getElementById(inputId);
+  const clearBtnId = inputId.replace('Url', 'Clear');
   try {
     if (navigator.clipboard && navigator.clipboard.readText) {
       const text = await navigator.clipboard.readText();
       if (text) {
-        inputElem.value = text.trim();
-        showToast('✔ Link berhasil ditempel!');
+        const trimmed = text.trim();
+        const switched = detectAndSwitchEngine(trimmed, inputId);
+        if (!switched) {
+          inputElem.value = trimmed;
+          handleInputTyping(inputId, clearBtnId);
+          showToast('Tautan ditempel!', 'success');
+        }
         return;
       }
     }
-    showToast('💡 Tempel manual (tahan kotak input)');
+    showToast('Tahan kotak input lalu pilih Tempel', 'info');
     inputElem.focus();
   } catch (err) {
-    showToast('💡 Tempel manual (tahan kotak input)');
+    showToast('Tahan kotak input lalu pilih Tempel', 'info');
     inputElem.focus();
   }
 }
 
-// INTRO & GATEWAY LOGIC
+document.querySelectorAll('.smart-url-input').forEach(inp => {
+  inp.addEventListener('paste', () => {
+    setTimeout(() => {
+      detectAndSwitchEngine(inp.value, inp.id);
+      handleInputTyping(inp.id, inp.id.replace('Url', 'Clear'));
+    }, 50);
+  });
+});
+
+// LOCAL HISTORY
+const HISTORY_KEY = 'linkora_bypass_history_v1';
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch { return []; }
+}
+function saveToHistory(engineName, resultUrl) {
+  const list = getHistory();
+  const filtered = list.filter(item => item.url !== resultUrl);
+  filtered.unshift({ engine: engineName, url: resultUrl, time: new Date().toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) });
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(filtered.slice(0, 5)));
+  updateHistoryBadge();
+}
+function updateHistoryBadge() {
+  document.getElementById('historyCount').textContent = getHistory().length;
+}
+function renderHistoryModal() {
+  const container = document.getElementById('historyListContainer');
+  const list = getHistory();
+  if (list.length === 0) {
+    container.innerHTML = `<div style="padding:18px;background:var(--bg-grid);border:2px dashed #94a3b8;border-radius:10px;font-size:12px;font-weight:700;color:#64748b;">Belum ada riwayat tersimpan.</div>`;
+    return;
+  }
+  container.innerHTML = list.map(item => `
+    <div class="history-item">
+      <div class="history-item-top"><span>⚡ ${item.engine}</span><span>${item.time}</span></div>
+      <div class="history-item-url">${item.url}</div>
+      <div class="history-item-actions">
+        <button type="button" class="history-mini-btn" style="background:var(--green);" onclick="copyTextSafe('${item.url.replace(/'/g, "\\'")}')">📋 SALIN</button>
+        <a class="history-mini-btn" style="background:var(--cyan);" href="${item.url}" target="_blank" rel="noopener">🌐 BUKA ↗</a>
+      </div>
+    </div>
+  `).join('');
+}
+document.getElementById('openHistoryBtn').addEventListener('click', () => {
+  renderHistoryModal();
+  document.getElementById('history-modal-backdrop').classList.add('show');
+});
+function closeHistoryModal() { document.getElementById('history-modal-backdrop').classList.remove('show'); }
+function clearHistory() {
+  localStorage.removeItem(HISTORY_KEY);
+  updateHistoryBadge();
+  renderHistoryModal();
+  showToast('Riwayat dihapus', 'info');
+}
+document.getElementById('history-modal-backdrop').addEventListener('click', (e) => {
+  if (e.target.id === 'history-modal-backdrop') closeHistoryModal();
+});
+updateHistoryBadge();
+
+// LINKVERTISE SWITCHER
+let selectedLvEndpoint = 'bypass';
+function selectLvEngine(endpoint, labelVersion) {
+  selectedLvEndpoint = endpoint;
+  document.getElementById('optLv1').classList.toggle('selected', endpoint === 'bypass');
+  document.getElementById('optLv2').classList.toggle('selected', endpoint === 'bypass2');
+  document.getElementById('lvActiveBadge').textContent = 'SERVER ' + labelVersion;
+  showToast(`Mode Linkvertise ${labelVersion} dipilih`, 'info');
+}
+
+// INTRO & GATEWAY
 const gatewayScreen = document.getElementById('gateway-screen');
 const enterBtn = document.getElementById('enterBtn');
 const introOverlay = document.getElementById('intro-overlay');
@@ -534,134 +904,137 @@ const skipBtn = document.getElementById('skipBtn');
 enterBtn.addEventListener('click', () => {
   gatewayScreen.classList.add('hidden');
   introOverlay.classList.remove('hidden');
-  if (introVideo) {
-    introVideo.muted = false;
-    introVideo.currentTime = 0;
-    introVideo.play().catch(err => console.log("Autoplay error:", err));
-  }
+  if (introVideo) { introVideo.muted = false; introVideo.currentTime = 0; introVideo.play().catch(() => {}); }
 });
-
 function finishIntro() {
   introOverlay.classList.add('hidden');
   document.body.classList.remove('intro-active');
   if (introVideo) introVideo.pause();
 }
-
 if (introVideo) introVideo.addEventListener('ended', finishIntro);
 skipBtn.addEventListener('click', finishIntro);
 
-// SIDEBAR DRAWER LOGIC
+// DRAWER & TABS
 const hamburgerBtn = document.getElementById('hamburgerBtn');
 const drawer = document.getElementById('drawer');
 const drawerOverlay = document.getElementById('drawer-overlay');
 const closeDrawer = document.getElementById('closeDrawer');
-
-function toggleDrawer() {
-  drawer.classList.toggle('open');
-  drawerOverlay.classList.toggle('show');
-}
+function toggleDrawer() { drawer.classList.toggle('open'); drawerOverlay.classList.toggle('show'); }
 hamburgerBtn.addEventListener('click', toggleDrawer);
 closeDrawer.addEventListener('click', toggleDrawer);
 drawerOverlay.addEventListener('click', toggleDrawer);
 
-// MULTI-PAGE NAVIGATION TABS
 const navTabs = document.querySelectorAll('.nav-tab');
 const views = document.querySelectorAll('.view');
-
+function switchTabTo(targetSlug) {
+  const targetId = 'view-' + targetSlug;
+  navTabs.forEach(t => { t.classList.toggle('active', t.getAttribute('data-target') === targetSlug); });
+  views.forEach(v => { v.classList.toggle('active', v.id === targetId); });
+}
 navTabs.forEach(tab => {
   tab.addEventListener('click', () => {
-    const targetId = 'view-' + tab.getAttribute('data-target');
-    navTabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    views.forEach(v => {
-      v.classList.remove('active');
-      if (v.id === targetId) v.classList.add('active');
-    });
+    switchTabTo(tab.getAttribute('data-target'));
     window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 });
 
-// SHARED API KEY & DYNAMIC LOADING EXTRACTOR
+// CORE API ENGINE + FALLBACK
 const HARDCODED_API_KEY = 'kyzz27586565016475';
+function isValidHttpUrl(string) {
+  try { const url = new URL(string); return url.protocol === 'http:' || url.protocol === 'https:'; } catch (_) { return false; }
+}
 
-async function handleBypass(endpoint, inputId, resultCardId, resultLinkId, openBtnId, btnId) {
+async function fetchBypassApi(endpoint, targetUrl) {
+  const params = new URLSearchParams({ url: targetUrl, apikey: HARDCODED_API_KEY });
+  const response = await fetch(`https://api.kyzzz.xyz/api/bypass/${endpoint}?` + params.toString());
+  const data = await response.json();
+
+  let finalResult = '';
+  if (data.destinationUrl) finalResult = data.destinationUrl;
+  else if (data.url) finalResult = data.url;
+  else if (data.result) finalResult = typeof data.result === 'object' ? (data.result.destinationUrl || data.result.url || data.result.link) : data.result;
+  else if (data.data) finalResult = typeof data.data === 'object' ? (data.data.destinationUrl || data.data.url || data.data.link) : data.data;
+
+  if (!finalResult || !isValidHttpUrl(finalResult)) {
+    throw new Error(data.message || 'Gagal mengekstrak URL tujuan.');
+  }
+  return finalResult;
+}
+
+async function handleBypass(endpoint, inputId, resultCardId, resultLinkId, openBtnId, btnId, serviceLabel, allowLvFallback = false) {
   const targetUrl = document.getElementById(inputId).value.trim();
   const btn = document.getElementById(btnId);
+  const originalLabel = btn.getAttribute('data-label');
   const resCard = document.getElementById(resultCardId);
   const resLink = document.getElementById(resultLinkId);
   const openBtn = document.getElementById(openBtnId);
 
-  if (!targetUrl) {
-    showToast('⚠️ Masukkan tautan terlebih dahulu!');
+  if (!targetUrl) { showToast('Masukkan tautan terlebih dahulu!', 'error'); document.getElementById(inputId).focus(); return; }
+  if (!isValidHttpUrl(targetUrl)) {
+    openCustomModal({ type: 'error', badge: 'FORMAT SALAH', title: 'Tautan Tidak Valid', desc: 'Pastikan link diawali http:// atau https://' });
     return;
   }
 
   btn.disabled = true;
-
-  // ANIMASI LOADING DINAMIS BERTAHAP
-  btn.textContent = '1. MENGHUBUNGKAN API...';
-  await new Promise(r => setTimeout(r, 300));
+  btn.textContent = '1. MENGHUBUNGKAN...';
+  await new Promise(r => setTimeout(r, 220));
   btn.textContent = '2. MENDEKRIPSI TAUTAN...';
-  await new Promise(r => setTimeout(r, 300));
-  btn.textContent = 'MEMPROSES BYPASS...';
-
   resCard.classList.remove('show');
 
   try {
-    const params = new URLSearchParams({ url: targetUrl, apikey: HARDCODED_API_KEY });
-    const response = await fetch(`https://api.kyzzz.xyz/api/bypass/${endpoint}?` + params.toString());
-    const data = await response.json();
-
     let finalResult = '';
-    if (data.destinationUrl) {
-      finalResult = data.destinationUrl;
-    } else if (data.url) {
-      finalResult = data.url;
-    } else if (data.result) {
-      finalResult = typeof data.result === 'object' ? (data.result.destinationUrl || data.result.url || data.result.link) : data.result;
-    } else if (data.data) {
-      finalResult = typeof data.data === 'object' ? (data.data.destinationUrl || data.data.url || data.data.link) : data.data;
-    } else {
-      finalResult = JSON.stringify(data);
+    try {
+      finalResult = await fetchBypassApi(endpoint, targetUrl);
+    } catch (primaryErr) {
+      if (allowLvFallback && endpoint === 'bypass') {
+        btn.textContent = 'V1 GAGAL, MENCOBA V2...';
+        selectLvEngine('bypass2', 'V2');
+        finalResult = await fetchBypassApi('bypass2', targetUrl);
+        serviceLabel = 'Linkvertise V2 (Fallback)';
+      } else { throw primaryErr; }
     }
 
     resLink.textContent = finalResult;
     openBtn.href = finalResult;
     resCard.classList.add('show');
-    showToast('🎉 Link berhasil diekstrak!');
+    saveToHistory(serviceLabel, finalResult);
+
+    showToast('Bypass sukses!', 'success');
+    openCustomModal({ type: 'success', badge: 'BERHASIL', title: 'Tautan Asli Ditemukan!', desc: 'Berhasil diekstrak tanpa iklan:', url: finalResult });
   } catch (err) {
-    showToast('❌ Gagal mengekstrak link, periksa URL!');
-    console.error(err);
+    showToast('Gagal mengekstrak link!', 'error');
+    openCustomModal({ type: 'error', badge: 'GAGAL', title: 'Bypass Gagal', desc: 'Periksa kembali tautan atau coba server alternatif.' });
   } finally {
     btn.disabled = false;
-    btn.textContent = btnId.includes('sfl') ? 'BYPASS SFL SEKARANG ↓' : (btnId.includes('sub4') ? 'BYPASS SUB4UNLOCK ↓' : 'BYPASS SUB2UNLOCK ↓');
+    btn.textContent = originalLabel;
   }
 }
 
-// BINDING TOMBOL EKSEKUSI
-document.getElementById('sflBtn').addEventListener('click', () => handleBypass('sfl', 'sflUrl', 'sflResultCard', 'sflResultLink', 'sflOpenBtn', 'sflBtn'));
-document.getElementById('sub4Btn').addEventListener('click', () => handleBypass('sub4unlock', 'sub4Url', 'sub4ResultCard', 'sub4ResultLink', 'sub4OpenBtn', 'sub4Btn'));
-document.getElementById('sub2Btn').addEventListener('click', () => handleBypeass?.('sub2unlock', 'sub2Url', 'sub2ResultCard', 'sub2ResultLink', 'sub2OpenBtn', 'sub2Btn') || handleBypass('sub2unlock', 'sub2Url', 'sub2ResultCard', 'sub2ResultLink', 'sub2OpenBtn', 'sub2Btn'));
+document.getElementById('sflBtn').addEventListener('click', () => handleBypass('sfl', 'sflUrl', 'sflResultCard', 'sflResultLink', 'sflOpenBtn', 'sflBtn', 'SFL'));
+document.getElementById('sub4Btn').addEventListener('click', () => handleBypass('sub4unlock', 'sub4Url', 'sub4ResultCard', 'sub4ResultLink', 'sub4OpenBtn', 'sub4Btn', 'Sub4Unlock'));
+document.getElementById('sub2Btn').addEventListener('click', () => handleBypass('sub2unlock', 'sub2Url', 'sub2ResultCard', 'sub2ResultLink', 'sub2OpenBtn', 'sub2Btn', 'Sub2Unlock'));
+document.getElementById('lvBtn').addEventListener('click', () => {
+  const verName = selectedLvEndpoint === 'bypass' ? 'Linkvertise V1' : 'Linkvertise V2';
+  handleBypass(selectedLvEndpoint, 'lvUrl', 'lvResultCard', 'lvResultLink', 'lvOpenBtn', 'lvBtn', verName, true);
+});
+document.getElementById('ouoBtn').addEventListener('click', () => handleBypass('ouo', 'ouoUrl', 'ouoResultCard', 'ouoResultLink', 'ouoOpenBtn', 'ouoBtn', 'Ouo.io'));
 
-// BINDING TOMBOL SALIN (CLIPBOARD) DENGAN TOAST
 function setupCopy(btnId, resultLinkId) {
   document.getElementById(btnId).addEventListener('click', () => {
     const textToCopy = document.getElementById(resultLinkId).textContent.trim();
     if (!textToCopy) return;
-
-    navigator.clipboard.writeText(textToCopy).then(() => {
-      showToast('📋 Link berhasil disalin!');
-      const btn = document.getElementById(btnId);
-      const originalText = btn.textContent;
-      btn.textContent = '✔ TERSALIN!';
-      setTimeout(() => { btn.textContent = originalText; }, 2000);
-    });
+    copyTextSafe(textToCopy);
+    const btn = document.getElementById(btnId);
+    const orig = btn.textContent;
+    btn.textContent = '✔ TERSALIN!';
+    setTimeout(() => { btn.textContent = orig; }, 2000);
   });
 }
-
 setupCopy('sflCopyBtn', 'sflResultLink');
 setupCopy('sub4CopyBtn', 'sub4ResultLink');
 setupCopy('sub2CopyBtn', 'sub2ResultLink');
+setupCopy('lvCopyBtn', 'lvResultLink');
+setupCopy('ouoCopyBtn', 'ouoResultLink');
 </script>
 </body>
 </html>
