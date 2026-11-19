@@ -342,7 +342,7 @@ body.intro-active { overflow: hidden !important; height: 100vh !important; }
 .modal-badge-top.info { background: var(--yellow); color: var(--black); }
 
 .modal-title { font-weight: 900; font-size: 19px; margin: 0 0 8px; line-height: 1.25; }
-.modal-desc { font-weight: 700; font-size: 13px; color: #475569; margin: 0 0 16px; line-height: 1.5; }
+.modal-desc { font-weight: 700; font-size: 13px; color: #475569; margin: 0 0 16px; line-height: 1.5; word-break: break-all; }
 
 .modal-url-preview {
   display: none; background: var(--black); color: var(--green);
@@ -932,7 +932,7 @@ navTabs.forEach(tab => {
 });
 
 // CORE API ENGINE + FALLBACK
-const HARDCODED_API_KEY = 'kyzz27586565016475';
+const HARDCODED_API_KEY = 'kyzz0275156748600';
 function isValidHttpUrl(string) {
   try { const url = new URL(string); return url.protocol === 'http:' || url.protocol === 'https:'; } catch (_) { return false; }
 }
@@ -949,7 +949,8 @@ async function fetchBypassApi(endpoint, targetUrl) {
   else if (data.data) finalResult = typeof data.data === 'object' ? (data.data.destinationUrl || data.data.url || data.data.link) : data.data;
 
   if (!finalResult || !isValidHttpUrl(finalResult)) {
-    throw new Error(data.message || 'Gagal mengekstrak URL tujuan.');
+    const apiMsg = data.message || data.error || data.msg || 'Gagal mengekstrak URL tujuan.';
+    throw new Error(apiMsg);
   }
   return finalResult;
 }
@@ -995,21 +996,26 @@ async function handleBypass(endpoint, inputId, resultCardId, resultLinkId, openB
     showToast('Bypass sukses!', 'success');
     openCustomModal({ type: 'success', badge: 'BERHASIL', title: 'Tautan Asli Ditemukan!', desc: 'Berhasil diekstrak tanpa iklan:', url: finalResult });
   } catch (err) {
-    let errorTitle = 'Bypass Gagal';
-    let errorDesc = err.message || 'Periksa kembali tautan atau coba server alternatif.';
+    const exactMessage = err.message || 'Terjadi kesalahan pada sistem.';
     
-    const lowerMsg = errorDesc.toLowerCase();
-    if (lowerMsg.includes('limit') || lowerMsg.includes('habis') || lowerMsg.includes('quota')) {
-      errorTitle = 'Limit API Habis';
-      errorDesc = 'Batas penggunaan API telah habis dan akan direset pada pukul 00.00 (jam 12 malam).';
+    // BERSIHKAN TEKS DARI API, BUANG KALIMAT "UPGRADE KE PREMIUM"
+    const cleanedMessage = exactMessage.replace(/, atau upgrade ke premium\.?/gi, '').replace(/atau upgrade ke premium/gi, '').trim();
+    const lowerMsg = cleanedMessage.toLowerCase();
+    
+    let badgeText = 'GAGAL';
+    let titleText = 'Bypass Gagal';
+
+    if (lowerMsg.includes('limit') || lowerMsg.includes('batas') || lowerMsg.includes('quota') || lowerMsg.includes('request')) {
+      badgeText = 'LIMIT TERCAPAI';
+      titleText = 'Batas Harian Habis';
     }
 
     showToast('Gagal mengekstrak link!', 'error');
     openCustomModal({ 
       type: 'error', 
-      badge: lowerMsg.includes('limit') ? 'LIMIT API' : 'GAGAL', 
-      title: errorTitle, 
-      desc: errorDesc 
+      badge: badgeText, 
+      title: titleText, 
+      desc: cleanedMessage 
     });
   } finally {
     btn.disabled = false;
